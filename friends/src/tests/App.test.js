@@ -4,4 +4,6 @@ import App from './App';
 
 test('App renders without crashing', () => {
     const { getByText } = render(<App />);
+    const linkElement = getByText(/learn react/i);
+    expect(linkElement).toBeInTheDocument();
 });

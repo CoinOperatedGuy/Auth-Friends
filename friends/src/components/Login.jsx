@@ -1,59 +1,55 @@
-import React from 'react';
-import axios from 'axios';
+import React, {useState} from 'react';
+import axiosAuth from './utilities/axiosAuth';
 
-class Login extends React.Component {
-    state = {
-        credentials: {
-            username: '',
-            password: ''
-        }
-    };
-
-    handleChanges = e => {
-        this.setState({
-            credentials: {
-                ...this.state.credentials,
-                [e.target.name]: e.target.value
-            }
-        });
-    };
-
-    login = e => {
-        e.preventDefault();
-
-        axios
-            .post('/login', this.state.credentials)
-            .then(res => {
-                console.log(res);
-                localStorage.setTime('token', res.data.payload);
-                this.props.history.push('/protected');
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
-
-    render() {
-        return (
-            <div>
-                <form onSubmit={this.login}>
-                    <input 
-                        type='text'
-                        name='username'
-                        value={this.state.credentials.username}
-                        onChange={this.handleChanges}
-                    />
-                    <input
-                        type='password'
-                        name='password'
-                        value={this.state.credentials.password}
-                        onChange={this.handleChanges}
-                    />
-                    <button>Log in</button>
-                </form>
-            </div>
-        );
-    }
+const Login = (props) => {
+    const [credentials, setCredentials] = useState({
+        username: '',
+        password:''
+    })
+ 
+    const [isLoading, setIsLoading] = useState(false);
+ 
+ 
+     const handleChanges = e => {
+       setCredentials({
+           ...credentials,
+           [e.target.name]: e.target.value
+       });
+     };
+ 
+     const login = e => {
+      e.preventDefault();
+      setIsLoading(true);
+      axiosAuth()
+      .post("/login", credentials)
+      .then(res => {
+          localStorage.setItem("token", res.data.payload);
+          setIsLoading(false);
+          props.history.push("/friendslist");
+          console.log(res);
+      })
+      .catch(err=>
+         console.error(err.message));
+     };
+        return(
+             <div>
+                 <form onSubmit = {login}>
+                     <input
+                         type="text" 
+                         name="username"
+                         value={credentials.username}
+                         onChange={handleChanges}
+                     />
+                     <input 
+                         type="password"
+                         name="password"
+                         value={credentials.password}
+                         onChange={handleChanges}
+                     />
+                     <button>Log-In</button>
+                 </form>
+             </div>
+         );
 }
 
 export default Login;
