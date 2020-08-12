@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import * as yup from 'yup';
+// import * as yup from 'yup';
 import axiosAuth from '../utilities/axiosAuth';
 import {FriendContext} from '.././context/FriendContext'
 
@@ -16,27 +16,27 @@ const AddForm = () => {
 
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
-    const formSetup = yup.object().shape({
-        name: yup.string().required('Friend name is required'),
-        age: yup.number().required('Friend age is required'),
-        email: yup.string().required('Friend email is required')
-    });
+    // const formSetup = yup.object().shape({
+    //     name: yup.string().required('Friend name is required'),
+    //     age: yup.number().required('Friend age is required'),
+    //     email: yup.string().required('Friend email is required')
+    // });
 
-    const validateChanges = (e) => {
-        yup
-        .reach(formSetup, e.target.name)
-        .validate(e.target.value)
-        .then((valid) => {
-            setErr({...err, [e.target.name]: ''})
-        })
-        .catch((err) => console.log(err));
-    };
+    // const validateChanges = (e) => {
+    //     yup
+    //     .reach(formSetup, e.target.name)
+    //     .validate(e.target.value)
+    //     .then((valid) => {
+    //         setErr({...err, [e.target.name]: ''})
+    //     })
+    //     .catch((err) => console.log(err));
+    // };
 
-    useEffect(() => {
-        formSetup.isValid(formState).then((valid) => {
-            setButtonDisabled(!valid);
-        });
-    }, [formState]);
+    // useEffect(() => {
+    //     formSetup.isValid(formState).then((valid) => {
+    //         setButtonDisabled(!valid);
+    //     });
+    // }, []);
 
     useEffect(() => {
         if (editFriend) {
@@ -82,7 +82,7 @@ const AddForm = () => {
             ...formState,
             [e.target.name]: e.target.value
         };
-        validateChanges(e);
+        // validateChanges(e);
         setFormState(newData);
     };
 
