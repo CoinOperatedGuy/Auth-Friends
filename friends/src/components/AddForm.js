@@ -4,7 +4,7 @@ import axiosAuth from './utilities/axiosAuth';
 import {FriendContext} from './context/FriendContext';
 
 const AddForm = () => {
-    const (setFriends, editFriend, formState, setFormState) = useContext(
+    const [setFriends, editFriend, formState, setFormState] = useContext(
         FriendContext
     );
 
@@ -16,7 +16,7 @@ const AddForm = () => {
 
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
-    const formSetup = yup.object(.shape({
+    const formSetup = yup.object(shape({
         name: yup.string().required('Friend name is required'),
         age: yup.number().required('Friend age is required'),
         email: yup.string().required('Friend email is required')
