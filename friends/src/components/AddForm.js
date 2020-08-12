@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import * as yup from 'yup';
-import axiosAuth from './utilities/axiosAuth';
-import {FriendContext} from './context/FriendContext';
+import axiosAuth from '../utilities/axiosAuth';
+import {FriendContext} from '.././context/FriendContext'
 
 const AddForm = () => {
     const [setFriends, editFriend, formState, setFormState] = useContext(
@@ -16,11 +16,11 @@ const AddForm = () => {
 
     const [buttonDisabled, setButtonDisabled] = useState(true);
 
-    const formSetup = yup.object(shape({
+    const formSetup = yup.object().shape({
         name: yup.string().required('Friend name is required'),
         age: yup.number().required('Friend age is required'),
         email: yup.string().required('Friend email is required')
-    }));
+    });
 
     const validateChanges = (e) => {
         yup
@@ -29,7 +29,7 @@ const AddForm = () => {
         .then((valid) => {
             setErr({...err, [e.target.name]: ''})
         })
-        .catch((err) => setErr({...err, [e.target.name]: err:errs[0]});
+        .catch((err) => console.log(err));
     };
 
     useEffect(() => {
@@ -47,7 +47,7 @@ const AddForm = () => {
     const addFriend = (friend) => {
         if (friend.id){
             axiosAuth()
-            .post('/frineds/${friend.id}', friend)
+            .post('/friends/${friend.id}', friend)
             .then((res) => {
                 setFriends(res.data);
             })

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import axiosAuth from './utilities/axiosAuth';
-import {FriendContext} from './contexts/FriendContext';
+import axiosAuth from '../utilities/axiosAuth';
+import {FriendContext} from '../context/FriendContext';
 import AddForm from './AddForm';
 
 const FriendList = () => {
